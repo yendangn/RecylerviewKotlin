@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.place_item_layout.view.*
 
-class PlaceAdapter(private val mDataSet: List<Place>, private val itemClickListener: (Place) -> Unit) :
+class PlaceAdapter(private val mDataSet: List<Place>, private val itemClickListener: (Place, View) -> Unit) :
     RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, postion: Int): PlaceViewHolder {
@@ -26,11 +26,11 @@ class PlaceAdapter(private val mDataSet: List<Place>, private val itemClickListe
 
     class PlaceViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindPlace(place: Place, itemClickListener: (Place) -> Unit) {
+        fun bindPlace(place: Place, itemClickListener: (Place, View) -> Unit) {
             view.imgBackground.setImageResource(place.image)
             view.tvName.text = place.name
 
-            view.setOnClickListener { itemClickListener(place) }
+            view.setOnClickListener { itemClickListener(place, view.mainView) }
         }
     }
 }

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -21,8 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         val mDataSet = createDataSet()
 
-        mAdapter = PlaceAdapter(mDataSet) { place ->
-            onPlaceItemClick(place)
+        mAdapter = PlaceAdapter(mDataSet) { place, view ->
+            onPlaceItemClick(place, view)
         }
 
         rvPlace = findViewById<RecyclerView>(R.id.rvPlace).apply {
@@ -32,8 +33,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onPlaceItemClick(place: Place) {
+    private fun onPlaceItemClick(place: Place, view: View) {
         Toast.makeText(this, place.name, Toast.LENGTH_LONG).show()
+
+        PlaceDetailActivity.start(this, view, place.image)
     }
 
     private fun createDataSet(): List<Place> {
